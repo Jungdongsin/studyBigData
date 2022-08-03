@@ -78,10 +78,10 @@ def getTourismStatsService(nat_cd, ed_cd, nStartYear, nEndYear):
                     print(f"제공되는 데이터는 {year}년 {month-1}월까지 입니다.")
                     break
             print(json.dumps(jsonData, indent=4, sort_keys=True, ensure_ascii=False))
-            natName = jsonData["response"]["body"]["items"]["natKorNm"]
+            natName = jsonData["response"]["body"]["items"]["item"]["natKorNm"]
             natName = natName.replace(" ", "") # 중  국 -> 중국 (여백 제거)
-            num = jsonData["response"]["body"]["items"]["num"]
-            ed = jsonData["response"]["body"]["items"]["ed"]
+            num = jsonData["response"]["body"]["items"]["item"]["num"]
+            ed = jsonData["response"]["body"]["items"]["item"]["ed"]
 
             jsonResult.append(
                 {"nat_name" : natName},
@@ -92,8 +92,7 @@ def getTourismStatsService(nat_cd, ed_cd, nStartYear, nEndYear):
             result.append([natName, nat_cd, yyyymm, num])
     
     return (jsonResult, result, natName, ed, dataEnd)
-
-          
+         
 
 
 def main():
@@ -115,11 +114,19 @@ def main():
     if natName == "":
         print("데이터 전달 실패. 공공데이터포털 서비스 확인요망")
     else:
-        """
-        with open("./%s_%s_%d_%s.json" % (natwName, ed, nStartYear, dataEnd), "w", encoding = "utf-8") as outfile
-        """
-    
+        #파일 저장 json
+        with open("./%s_%s_%d_%s.json" % (natName, ed, nStartYear, dataEnd), "w", encoding = "utf-8") as outfile:
+            jsonFile = json.dumps(jsonResult, indent=4, sort_keys=True, ensure_ascii=False)
+            outfile.write(jsonFile)
+
+        #파일 저장 csv
+        columns = ["입국국가", "국가코드", "입국연월", "입국자수"]
+        result_df = pd.DataFrame(result, columns=columns)
+        result_df.to_csv(f"./{natName}_{ed}_{nStartYear}_{nEndYear}_{dataEnd}.csv", index=False, encoding = "utf-8")
+
+        print("csv파일 저장완료")
+
+
 
 if __name__ == "__main__":
     main()
-
