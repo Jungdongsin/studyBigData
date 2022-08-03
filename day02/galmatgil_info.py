@@ -96,7 +96,7 @@ def main():
         columns = ["seq","course_nm","gugan_nm","gm_range","gm_degree","start_pls","start_addr","middle_pls","middle_adr","end_pls","end_addr","gm_course","gm_text"]
 
         result_df = pd.DataFrame(result, columns=columns)
-        result_df.to_csv(f"./부산갈맷길정보.csv", index=False, encoding = "utf-8")
+        result_df.to_csv(f"./부산갈맷길정보.csv", index=False, encoding = "utf-8") #csv파일명
 
         print("csv파일 저장완료")
 
@@ -108,13 +108,14 @@ def main():
             db="crawling_data"
             )
         
-        cursor = connection.cursor()
+        cursor = connection.cursor() #커서 객체가 있어야 실행 가능
 
         # 컬럼명 동적으로 만들기
         cols = "`,`".join([str(i) for i in result_df.columns.tolist()])
         #colums의 컬럼 이름을 리스트로 쭉 만듦
         
         for i, row in result_df.iterrows():
+            #.iterrows() : 반복으로 돌면서 값들을 하나씩 만들어주는거
             sql = "INSERT INTO `galmatgil_info` (`" + cols + "`) VALUES(" + "%s,"*(len(row)-1) +"%s)"
             cursor.execute(sql, tuple(row))
 
