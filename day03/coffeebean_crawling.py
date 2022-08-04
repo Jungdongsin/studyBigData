@@ -14,7 +14,7 @@ def getCoffeeBeanStoreInfo(result):
 
     for i in range(1,380+1):
         wd.get("https://www.coffeebeankorea.com/store/store.asp")
-        time.sleep(1)
+        time.sleep(1) #팝업표시후에 크롤링이 안되서 브라우저가 닫히는 것을 방지
 
         try:
             wd.execute_script(f"storePop2('{i}')")
@@ -22,6 +22,8 @@ def getCoffeeBeanStoreInfo(result):
             html = wd.page_source
             soup = BeautifulSoup(html, "html.parser")
             store_name = soup.select("div.store_txt > h2")[0].string
+            #h2를 안쓰면 모든 store_txt가 다 나옴
+            #그래서 div에 store_txt에 있는 h2를 가져옴
             print(store_name)
             store_info = soup.select("table.store_table > tbody > tr > td")
             store_address_list = list(store_info[2])

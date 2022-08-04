@@ -20,7 +20,7 @@ def getHollysStoreInfo(result):
             if len(store) <= 3:
                 break
             store_td = store.find_all("td")
-            store_name = store_td[1].string
+            store_name = store_td[1].string #.string() <>문자<> 사이 문자만 뽑는다
             store_sido = store_td[0].string
             store_address = store_td[3].string
             store_phone = store_td[5].string
