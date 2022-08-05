@@ -19,14 +19,12 @@
 ## Day 3
 -웹 크롤링
   - Beautifulsoup
-  - Selinum
-
-- 빅데이터 분석
-  - 통계 분석
- 
+  - Selinum 
 
 ## Day 4
-
+- 빅데이터 분석
+  - 통계 분석
+  - 상관 분석
 
 ## Day 5
 
