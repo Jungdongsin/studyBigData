@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-
+ 
 
 # 클래스 OOP
 class qTemplate(QWidget):

@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget
-
+ 
 # 클래스 OOP
 class qTemplate(QWidget):
     #생성자
