@@ -34,13 +34,13 @@ class qTemplate(QWidget):
         
     def tblResultSelected(self) -> None: # 링크나 제목 누르면 웹사이트로 연결되는거
         selected = self.tblResult.currentRow()   # 현재 선택된 열의 인덱스
-        link = self.tblResult.item(selected, 1).text()
+        link = self.tblResult.item(selected, 2).text() # -> movie : 1 -> 2
         webbrowser.open(link)
         
     def btnSearchClicked(self) -> None: # 슬롯(이벤트핸들러)
         jsonResult = []
         totalResult = []
-        keyword = "news"
+        keyword = "movie"
         search_word = self.txtSearch.text()
         display_count = 100
         
@@ -55,20 +55,24 @@ class qTemplate(QWidget):
 
     def makeTable(self, result):
         self.tblResult.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.tblResult.setColumnCount(2)
+        self.tblResult.setColumnCount(3) # -> movie: 2(news) -> 3(movie)
         self.tblResult.setRowCount(len(result)) # displayCount에 따라서 변경
-        self.tblResult.setHorizontalHeaderLabels(["기사제목", "뉴스링크",])
-        self.tblResult.setColumnWidth(0, 350)
+        self.tblResult.setHorizontalHeaderLabels(["영화제목", "상영년도", "뉴스링크"]) # -> movie : 제목변경
+        self.tblResult.setColumnWidth(0, 250)
         self.tblResult.setColumnWidth(1, 100)
+        self.tblResult.setColumnWidth(2, 100)   # -> movie : 세번재 컬럼 길이
         self.tblResult.setEditTriggers(QAbstractItemView.NoEditTriggers) # readonly
         # 테이블 위젯 설정
         
         i = 0
         for item in result:
             title = self.strip_tag(item[0]["title"])
-            link = item[0]["originallink"]
-            self.tblResult.setItem(i, 0, QTableWidgetItem(title))
-            self.tblResult.setItem(i, 1, QTableWidgetItem(link))
+            subtitle = self.strip_tag(item[0]["subtitle"])
+            pubDate = item[0]["pubDate"]
+            link = item[0]["link"] # -> movie : originallink -> link
+            self.tblResult.setItem(i, 0, QTableWidgetItem(f"{title} / {subtitle}")) #-> movie : subtitle 추가
+            self.tblResult.setItem(i, 1, QTableWidgetItem(pubDate)) #-> movie : pubDate 추가
+            self.tblResult.setItem(i, 2, QTableWidgetItem(link)) # -> movie : 1->2
             i += 1
 
     def strip_tag(self, title): # html 태그를 없애주는 함수
@@ -85,14 +89,13 @@ class qTemplate(QWidget):
     def getPostData(self, post): #선택된것만 뽑아 출력
         temp = []
         title = post["title"]
-        description = post["description"]
-        originallink = post["originallink"]
-        link = post["link"]
+        subtitle = post["subtitle"] #-> movie : subtilte 추가
+        link = post["link"] # -> movie : originallink -> link
         pubDate = post["pubDate"]
 
         temp.append({"title": title,
-                     "description" : description,
-                     "originallink" : originallink,
+                     "subtitle" : subtitle,  # -> movie : subtilte 추가
+                     "pubDate" : pubDate, #-> movie : pubDate 필요해서 추가
                      "link" : link})
 
         return temp

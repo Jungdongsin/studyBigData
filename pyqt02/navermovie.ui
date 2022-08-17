@@ -22,7 +22,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>네이버뉴스 검색</string>
+   <string>네이버영화 검색</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -54,7 +54,7 @@
     </property>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>검색어</string>
+      <string>영화제목</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -78,7 +78,7 @@
     </rect>
    </property>
    <property name="selectionMode">
-    <enum>QAbstractItemView::SingleSelection</enum>
+    <enum>QAbstractItemView::NoSelection</enum>
    </property>
   </widget>
  </widget>
