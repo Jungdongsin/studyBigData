@@ -45,3 +45,11 @@
   - PyQt5 학습
     - QtDesigner로 UI생성
     - 네이버 API로 네이버 뉴스, 네이버 영화 검색 앱 만들기
+    
+## PyQt 3
+  - 네이버 API 검색 화면
+<https://github.com/Jungdongsin/StudyBigData/blob/main/image/%EB%84%A4%EC%9D%B4%EB%B2%84%20API%20%EA%B2%80%EC%83%89%20%ED%81%AC%EB%A1%A4%EB%A7%812022-08-18%20102846.png>
+  - 검색 후 csv파일로 저장
+  <https://github.com/Jungdongsin/StudyBigData/tree/main/pyqt03>
+
+
